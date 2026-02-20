@@ -4,8 +4,6 @@ import SEOHead from '../components/SEOHead.astro';
 import ContactForm from '../components/ContactForm.tsx';
 import { generateBreadcrumbLD } from '../lib/seo';
 const breadcrumbs = generateBreadcrumbLD([{ name: 'Home', url: 'https://propertymanagementgibraltar.com' }, { name: 'Contact', url: 'https://propertymanagementgibraltar.com/contact' }]);
-const supabaseUrl = import.meta.env.SUPABASE_URL || 'https://bfxroxboykuivgckmebw.supabase.co';
-const supabaseKey = import.meta.env.SUPABASE_ANON_KEY || '';
 ---
 <BaseLayout>
   <SEOHead slot="head" title="Contact Us - Property Management Gibraltar"
@@ -25,7 +23,7 @@ const supabaseKey = import.meta.env.SUPABASE_ANON_KEY || '';
       </div>
       <div class="card">
         <h2 class="font-heading font-bold text-xl text-stone-900 mb-6">Send us a message</h2>
-        <ContactForm client:load supabaseUrl={supabaseUrl} supabaseKey={supabaseKey} />
+        <ContactForm client:load />
       </div>
     </div>
   </section>
