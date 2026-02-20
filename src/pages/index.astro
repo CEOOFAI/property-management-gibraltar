@@ -143,7 +143,23 @@ const combinedLD = `[${generateWebsiteLD()},${generateLocalBusinessLD()}]`;
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
     <div class="card !bg-stone-50 !p-8 sm:!p-12 text-center">
       <h2 class="section-heading">We manage properties across <span class="gradient-text">all of Gibraltar</span></h2>
-      <p class="text-stone-500 mt-3 max-w-lg mx-auto">Town Centre, South District, Westside, Europort, Ocean Village, Catalan Bay, and everywhere in between.</p>
+      <p class="text-stone-500 mt-3 max-w-lg mx-auto mb-8">Complete property management across every corner of Gibraltar.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+        {[
+          { area: 'Ocean Village', type: 'Marina & Luxury', rentRange: '£1,400-3,500/mo' },
+          { area: 'Town Centre', type: 'Central & Accessible', rentRange: '£1,000-2,500/mo' },
+          { area: 'South District', type: 'Family-Friendly', rentRange: '£1,200-3,000/mo' },
+          { area: 'Europort', type: 'Modern & Corporate', rentRange: '£1,100-2,800/mo' },
+          { area: 'Eastside', type: 'Beach & Coastal', rentRange: '£1,200-2,500/mo' },
+          { area: 'Westside', type: 'Harbour Views', rentRange: '£900-2,200/mo' },
+        ].map((a) => (
+          <div class="bg-stone-50 border border-stone-200 rounded-xl p-4 text-center hover:border-green-300 transition-colors">
+            <div class="font-heading font-bold text-stone-900 text-sm">{a.area}</div>
+            <div class="text-xs text-stone-400 mt-0.5">{a.type}</div>
+            <div class="text-xs font-medium text-green-700 mt-2">{a.rentRange}</div>
+          </div>
+        ))}
+      </div>
       <div class="flex flex-wrap justify-center gap-3 mt-8">
         <a href="/areas" class="btn-primary text-sm">View All Areas</a>
         <a href="/quote" class="btn-gold text-sm">Get a Quote</a>
