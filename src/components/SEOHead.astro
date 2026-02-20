@@ -1,0 +1,21 @@
+---
+import { getCanonical } from '../lib/seo';
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; ogType?: string; noindex?: boolean; structuredData?: string; }
+const { title, description, canonical, ogImage = '/og-default.png', ogType = 'website', noindex = false, structuredData } = Astro.props;
+const canonicalUrl = canonical || getCanonical(Astro.url.pathname);
+const fullTitle = title.includes('Property Management Gibraltar') ? title : `${title} | Property Management Gibraltar`;
+---
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title><meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <meta property="og:title" content={fullTitle} /><meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} /><meta property="og:type" content={ogType} />
+  <meta property="og:image" content={ogImage} /><meta property="og:site_name" content="Property Management Gibraltar" />
+  <meta property="og:locale" content="en_GB" />
+  <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} /><meta name="twitter:image" content={ogImage} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  {structuredData && <script type="application/ld+json" set:html={structuredData} />}
+</head>

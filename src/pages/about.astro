@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEOHead from '../components/SEOHead.astro';
+import { generateBreadcrumbLD } from '../lib/seo';
+const breadcrumbs = generateBreadcrumbLD([{ name: 'Home', url: 'https://propertymanagementgibraltar.com' }, { name: 'About', url: 'https://propertymanagementgibraltar.com/about' }]);
+---
+<BaseLayout>
+  <SEOHead slot="head" title="About Us — Property Management Gibraltar"
+    description="Gibraltar-based property management with local expertise. We manage properties for landlords and investors across the Rock with transparent, professional service."
+    structuredData={breadcrumbs} />
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <nav class="text-sm text-stone-500 mb-6"><a href="/" class="hover:text-emerald-700">Home</a><span class="mx-2">›</span><span class="text-stone-800">About</span></nav>
+    <h1 class="text-3xl sm:text-4xl font-heading font-bold mb-6">About <span class="gradient-text">Us</span></h1>
+    <div class="prose prose-lg max-w-none prose-p:text-stone-600 prose-headings:font-heading prose-headings:text-stone-900 prose-a:text-emerald-700">
+      <p>Gibraltar's rental market is unique. A territory of just 34,000 people with over 15,000 workers crossing the border daily, hundreds of international companies, and chronic housing demand. Managing a property here isn't like managing one in London or Manchester — it requires local knowledge, local relationships, and an understanding of how this market actually works.</p>
+      <p>That's where we come in. Property Management Gibraltar is a locally-based management company built specifically for this market. We don't try to manage properties across 50 cities — we focus exclusively on Gibraltar, and we do it properly.</p>
+      <h2>What Makes Us Different</h2>
+      <p>We're landlords ourselves. We know what it's like to deal with 2am emergency calls, difficult tenants, and the frustration of poor communication from agents. We built this service to be what we wished existed when we started investing in Gibraltar property.</p>
+      <p>Everything we do centres on transparency. Monthly statements that actually make sense. Maintenance quotes with photos and clear pricing. No hidden fees, no commission on contractor invoices, no surprises.</p>
+      <h2>Part of the Gibraltar Property Network</h2>
+      <p>We're part of a wider network of Gibraltar property platforms. If you're looking to buy, visit <a href="https://buypropertygibraltar.com" target="_blank">Buy Property Gibraltar</a> or <a href="https://propertiesforsalegibraltar.com" target="_blank">Properties For Sale Gibraltar</a>. For rental listings, check <a href="https://rentgibraltar.com" target="_blank">Rent Gibraltar</a>. Planning a move? <a href="https://gibraltarrelocation.com" target="_blank">Gibraltar Relocation</a> covers everything.</p>
+    </div>
+    <div class="mt-10 flex gap-3">
+      <a href="/quote" class="btn-gold">Get a Free Quote</a>
+      <a href="/contact" class="btn-secondary">Contact Us</a>
+    </div>
+  </section>
+</BaseLayout>

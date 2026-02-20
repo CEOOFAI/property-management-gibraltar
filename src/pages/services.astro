@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEOHead from '../components/SEOHead.astro';
+import { generateBreadcrumbLD } from '../lib/seo';
+const breadcrumbs = generateBreadcrumbLD([{ name: 'Home', url: 'https://propertymanagementgibraltar.com' }, { name: 'Services', url: 'https://propertymanagementgibraltar.com/services' }]);
+
+const services = [
+  { icon: '🔍', name: 'Tenant Finding', slug: 'tenant-finding', desc: 'We market your property across the right channels, conduct viewings, vet applications thoroughly, and place quality tenants. Our referencing includes credit checks, employment verification, previous landlord references, and right-to-rent checks. Average time to let: 14 days.', features: ['Multi-platform marketing', 'Accompanied viewings', 'Full referencing suite', 'Right-to-rent compliance', 'Tenancy agreement preparation'] },
+  { icon: '💷', name: 'Rent Collection', slug: 'rent-collection', desc: 'Automated rent collection on the agreed date every month. We handle direct debit setup, chase late payments, manage arrears with a clear escalation process, and provide monthly financial statements. You get paid on time, every time.', features: ['Automated monthly collection', 'Arrears management', 'Monthly financial statements', 'Annual tax summaries', 'Deposit management'] },
+  { icon: '🔧', name: 'Property Maintenance', slug: 'maintenance', desc: 'From emergency plumbing at 2am to scheduled annual inspections, we coordinate all maintenance through our network of vetted, insured Gibraltar contractors. Transparent quoting, photographic evidence, and landlord approval for all works over £150.', features: ['24/7 emergency response', 'Vetted local contractors', 'Transparent quoting process', 'Regular property inspections', 'Pre-tenancy deep cleans'] },
+  { icon: '⚖️', name: 'Legal & Compliance', slug: 'legal-compliance', desc: 'Gibraltar has specific landlord obligations including fire safety certificates, electrical inspections, and prescribed tenancy agreement terms. We ensure you\'re fully compliant, handle notice periods correctly, and manage any disputes or eviction proceedings.', features: ['Compliant tenancy agreements', 'Health & safety certificates', 'Deposit protection', 'Notice management', 'Dispute resolution'] },
+];
+---
+<BaseLayout>
+  <SEOHead slot="head" title="Property Management Services — What We Offer"
+    description="Complete property management services in Gibraltar: tenant finding, rent collection, maintenance, and legal compliance. Professional landlord support."
+    structuredData={breadcrumbs} />
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <nav class="text-sm text-stone-500 mb-6"><a href="/" class="hover:text-emerald-700">Home</a><span class="mx-2">›</span><span class="text-stone-800">Services</span></nav>
+    <div class="max-w-3xl mb-12">
+      <h1 class="text-3xl sm:text-4xl font-heading font-bold">Our <span class="gradient-text">Services</span></h1>
+      <p class="text-stone-500 mt-4 leading-relaxed">Whether you need full management or just tenant finding, we tailor our services to your needs. Every service is available individually or as part of a complete management package.</p>
+    </div>
+    <div class="space-y-8">
+      {services.map((s) => (
+        <div class="card" id={s.slug}>
+          <div class="flex items-start gap-5">
+            <span class="text-4xl shrink-0">{s.icon}</span>
+            <div class="flex-1">
+              <h2 class="font-heading font-bold text-2xl text-stone-900">{s.name}</h2>
+              <p class="text-stone-600 mt-3 leading-relaxed">{s.desc}</p>
+              <div class="mt-4">
+                <h3 class="font-semibold text-stone-800 text-sm mb-2">What's included:</h3>
+                <div class="flex flex-wrap gap-2">
+                  {s.features.map((f) => (
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-800 rounded-lg text-sm border border-emerald-100">
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-12">
+      <a href="/quote" class="btn-gold text-lg">Get a Free Management Quote →</a>
+    </div>
+  </section>
+</BaseLayout>

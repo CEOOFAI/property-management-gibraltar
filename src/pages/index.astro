@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEOHead from '../components/SEOHead.astro';
+import { supabase, SITE } from '../lib/supabase';
+import { generateWebsiteLD, generateLocalBusinessLD } from '../lib/seo';
+
+const { data: blogPosts } = await supabase.from('blog_posts').select('*')
+  .eq('site', SITE).eq('is_published', true).order('published_at', { ascending: false }).limit(3);
+const posts = blogPosts || [];
+
+const services = [
+  { icon: '🔍', name: 'Tenant Finding', slug: 'tenant-finding', desc: 'Rigorous vetting, referencing, and placement to find reliable tenants fast.' },
+  { icon: '💷', name: 'Rent Collection', slug: 'rent-collection', desc: 'Guaranteed rent day processing, arrears management, and financial reporting.' },
+  { icon: '🔧', name: 'Maintenance', slug: 'maintenance', desc: '24/7 emergency response, vetted contractors, and preventive upkeep.' },
+  { icon: '⚖️', name: 'Legal & Compliance', slug: 'legal-compliance', desc: 'Tenancy agreements, deposit protection, and regulatory compliance.' },
+];
+
+const stats = [
+  { value: '98%', label: 'Tenant retention rate' },
+  { value: '<48h', label: 'Average repair response' },
+  { value: '15+', label: 'Years combined experience' },
+  { value: '100%', label: 'Rent collection rate' },
+];
+
+const testimonials = [
+  { text: 'Finally a property manager who understands Gibraltar. Professional, responsive, and completely transparent with costs.', name: 'Sarah M.', role: 'Landlord, Ocean Village', rating: 5 },
+  { text: 'They found a quality tenant within 2 weeks and have handled everything since. I barely have to think about the property.', name: 'James T.', role: 'Investor, UK-based', rating: 5 },
+  { text: 'Switched from another agent after years of poor communication. Night and day difference. Wish I\'d moved sooner.', name: 'Maria L.', role: 'Landlord, Town Centre', rating: 5 },
+];
+
+const combinedLD = `[${generateWebsiteLD()},${generateLocalBusinessLD()}]`;
+---
+<BaseLayout>
+  <SEOHead slot="head"
+    title="Property Management Gibraltar — Professional Landlord Services"
+    description="Trusted property management in Gibraltar. Tenant finding, rent collection, maintenance, and legal compliance for landlords and investors. Get a free quote."
+    structuredData={combinedLD} />
+
+  {/* Hero */}
+  <section class="relative overflow-hidden bg-stone-900 text-white">
+    <div class="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml,%3Csvg width=60 height=60 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.4%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28">
+      <div class="max-w-3xl">
+        <div class="animate-fade-in-up">
+          <div class="trust-badge !bg-emerald-900/50 !border-emerald-700/50 !text-emerald-300 mb-6">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+            Trusted by Gibraltar Landlords
+          </div>
+        </div>
+        <h1 class="animate-fade-in-up animate-delay-100 text-4xl sm:text-5xl lg:text-6xl font-heading font-bold tracking-tight leading-[1.1]">
+          Your property,<br/><span class="text-emerald-400">professionally managed</span>
+        </h1>
+        <p class="animate-fade-in-up animate-delay-200 text-lg text-stone-300 mt-6 max-w-xl leading-relaxed">
+          From tenant finding to maintenance, rent collection to legal compliance — we handle everything so you can enjoy the returns without the hassle.
+        </p>
+        <div class="animate-fade-in-up animate-delay-300 flex flex-wrap gap-3 mt-8">
+          <a href="/quote" class="btn-gold">Get a Free Quote</a>
+          <a href="/services" class="inline-flex items-center px-6 py-3 border-2 border-stone-600 text-stone-200 font-semibold rounded-lg hover:bg-stone-800 transition-all">Our Services →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Stats */}
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {stats.map((s) => (
+        <div class="card text-center !py-6">
+          <div class="text-2xl font-heading font-bold text-emerald-700">{s.value}</div>
+          <div class="text-sm text-stone-500 mt-1">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* Services */}
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center mb-12">
+      <h2 class="section-heading">What we <span class="gradient-text">do</span></h2>
+      <p class="section-sub mx-auto">Comprehensive property management covering every aspect of landlord responsibility.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {services.map((s) => (
+        <a href={`/services/${s.slug}`} class="card-interactive group">
+          <span class="text-3xl">{s.icon}</span>
+          <h3 class="font-heading font-bold text-xl text-stone-900 mt-4 group-hover:text-emerald-700 transition-colors">{s.name}</h3>
+          <p class="text-stone-500 mt-2 leading-relaxed">{s.desc}</p>
+          <span class="text-emerald-700 text-sm font-medium mt-3 inline-block group-hover:underline">Learn more →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* Why Us / Trust */}
+  <section class="bg-emerald-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold">Why landlords choose us</h2>
+        <p class="text-emerald-200 mt-3 max-w-2xl mx-auto text-lg">We're not a London agency with a Gibraltar postbox. We live here, we know the market, and we treat your property like our own.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-emerald-700/40 rounded-xl p-6 border border-emerald-600/30">
+          <h3 class="font-heading font-bold text-lg mb-2">🏠 Local Expertise</h3>
+          <p class="text-emerald-100 text-sm leading-relaxed">We know every building, every area, and every nuance of Gibraltar's rental market. That means accurate pricing, faster lettings, and fewer voids.</p>
+        </div>
+        <div class="bg-emerald-700/40 rounded-xl p-6 border border-emerald-600/30">
+          <h3 class="font-heading font-bold text-lg mb-2">📊 Full Transparency</h3>
+          <p class="text-emerald-100 text-sm leading-relaxed">Monthly statements, real-time maintenance updates, and no hidden fees. You always know exactly what's happening with your property and your money.</p>
+        </div>
+        <div class="bg-emerald-700/40 rounded-xl p-6 border border-emerald-600/30">
+          <h3 class="font-heading font-bold text-lg mb-2">⚡ Responsive Service</h3>
+          <p class="text-emerald-100 text-sm leading-relaxed">Emergency maintenance within 4 hours. All calls and emails answered same day. Because problems don't wait, and neither should you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Testimonials */}
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="text-center mb-12">
+      <h2 class="section-heading">What landlords <span class="gradient-text-gold">say</span></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {testimonials.map((t) => (
+        <div class="card">
+          <div class="flex mb-3">
+            {Array.from({length: t.rating}).map((_, i) => (
+              <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-stone-600 leading-relaxed italic">"{t.text}"</p>
+          <div class="mt-4 pt-4 border-t border-stone-100">
+            <p class="font-semibold text-stone-900 text-sm">{t.name}</p>
+            <p class="text-stone-400 text-xs">{t.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* Areas */}
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="card !bg-stone-50 !p-8 sm:!p-12 text-center">
+      <h2 class="section-heading">We manage properties across <span class="gradient-text">all of Gibraltar</span></h2>
+      <p class="text-stone-500 mt-3 max-w-lg mx-auto">Town Centre, South District, Westside, Europort, Ocean Village, Catalan Bay, and everywhere in between.</p>
+      <div class="flex flex-wrap justify-center gap-3 mt-8">
+        <a href="/areas" class="btn-primary text-sm">View All Areas</a>
+        <a href="/quote" class="btn-gold text-sm">Get a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="rounded-2xl bg-stone-900 text-white p-8 sm:p-12 lg:p-16 text-center">
+      <h2 class="text-3xl sm:text-4xl font-heading font-bold">Ready to stop worrying about your property?</h2>
+      <p class="text-stone-300 mt-4 max-w-lg mx-auto">Get a free, no-obligation management quote in under 2 minutes. We'll review your details and come back with a tailored proposal.</p>
+      <a href="/quote" class="btn-gold mt-8 text-lg !px-10 !py-4">Get Your Free Quote →</a>
+    </div>
+  </section>
+</BaseLayout>

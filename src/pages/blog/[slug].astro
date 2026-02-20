@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SEOHead from '../../components/SEOHead.astro';
+import { supabase, SITE } from '../../lib/supabase';
+import { generateArticleLD, generateBreadcrumbLD, getCanonical } from '../../lib/seo';
+export async function getStaticPaths() {
+  const { data } = await supabase.from('blog_posts').select('slug').eq('site', 'propertymanagementgibraltar.com').eq('is_published', true);
+  return (data||[]).map((p: any) => ({ params: { slug: p.slug } }));
+}
+const { slug } = Astro.params;
+const { data: post } = await supabase.from('blog_posts').select('*').eq('site', SITE).eq('slug', slug).single();
+if (!post) return Astro.redirect('/blog');
+const articleLD = generateArticleLD({ title: post.title, description: post.excerpt||'', url: getCanonical(`/blog/${slug}`), image: post.cover_image||post.featured_image, datePublished: post.published_at||post.created_at });
+const breadcrumbs = generateBreadcrumbLD([{ name: 'Home', url: 'https://propertymanagementgibraltar.com' }, { name: 'Blog', url: 'https://propertymanagementgibraltar.com/blog' }, { name: post.title, url: `https://propertymanagementgibraltar.com/blog/${slug}` }]);
+function formatDate(d?: string) { if(!d)return''; return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); }
+---
+<BaseLayout>
+  <SEOHead slot="head" title={post.meta_title||post.title} description={post.meta_description||post.excerpt||''} ogType="article" ogImage={post.cover_image||post.featured_image} structuredData={`[${articleLD},${breadcrumbs}]`} />
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <nav class="text-sm text-stone-500 mb-6"><a href="/" class="hover:text-emerald-700">Home</a><span class="mx-2">›</span><a href="/blog" class="hover:text-emerald-700">Blog</a><span class="mx-2">›</span><span class="text-stone-800 truncate">{post.title}</span></nav>
+    <header class="mb-8">
+      {post.category && <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold mb-3">{post.category}</span>}
+      <h1 class="text-3xl sm:text-4xl font-heading font-bold text-stone-900 leading-tight">{post.title}</h1>
+      <div class="flex items-center gap-3 mt-4 text-sm text-stone-500"><span>{formatDate(post.published_at)}</span>{post.read_time_minutes && <><span>•</span><span>{post.read_time_minutes} min read</span></>}</div>
+    </header>
+    {(post.cover_image||post.featured_image) && <div class="aspect-video rounded-xl overflow-hidden bg-stone-100 mb-10"><img src={post.cover_image||post.featured_image} alt={post.title} class="w-full h-full object-cover"/></div>}
+    <div class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-stone-900 prose-p:text-stone-600 prose-a:text-emerald-700 prose-strong:text-stone-800"><Fragment set:html={post.content} /></div>
+    <footer class="mt-12 pt-6 border-t border-stone-100 flex justify-between items-center">
+      <a href="/blog" class="text-emerald-700 hover:underline text-sm">← All articles</a>
+      <a href="/quote" class="btn-gold text-sm">Get a Quote</a>
+    </footer>
+  </article>
+</BaseLayout>
