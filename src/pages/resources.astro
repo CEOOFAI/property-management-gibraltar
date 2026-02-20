@@ -6,11 +6,11 @@ import { generateBreadcrumbLD, generateFAQLD } from '../lib/seo';
 const faqs = [
   { q: 'How much does property management cost in Gibraltar?', a: 'Full management typically ranges from 8-12% of monthly rent, depending on the services included and number of properties. Tenant-finding-only services are usually a one-off fee equivalent to one month\'s rent. We provide tailored quotes based on your specific requirements.' },
   { q: 'Do I need a property manager if I live in Gibraltar?', a: 'Not necessarily, but many local landlords use us to save time and ensure professional handling of maintenance, compliance, and tenant relations. Even local landlords benefit from our contractor network, 24/7 emergency cover, and legal expertise.' },
-  { q: 'How quickly can you find a tenant?', a: 'On average, we place a quality tenant within 14 days of marketing. Premium properties in popular areas like Ocean Village and Town Centre often let within a week. We never rush placements — a quality tenant is worth waiting for.' },
+  { q: 'How quickly can you find a tenant?', a: 'On average, we place a quality tenant within 14 days of marketing. Premium properties in popular areas like Ocean Village and Town Centre often let within a week. We never rush placements - a quality tenant is worth waiting for.' },
   { q: 'What happens if a tenant doesn\'t pay rent?', a: 'We have a structured arrears process: automated reminders, personal contact within 48 hours, formal notice within 7 days, and legal proceedings if necessary. Our track record is a 100% rent collection rate because we vet tenants thoroughly upfront.' },
   { q: 'Can I use you for just one service, like maintenance only?', a: 'Yes. All our services are available individually. Many landlords who self-manage use us for specific functions like maintenance coordination or annual compliance checks.' },
   { q: 'What legal obligations do Gibraltar landlords have?', a: 'Gibraltar landlords must provide fire safety certificates, ensure electrical installations are safe, use proper tenancy agreements, protect deposits in approved schemes, and maintain properties to habitable standards. We handle all compliance as part of our management service.' },
-  { q: 'I\'m a UK-based investor. Can you manage my Gibraltar property remotely?', a: 'Absolutely — remote landlords are a large part of our client base. We provide full management with monthly reports, photos, and video inspections. You\'ll never need to visit unless you want to. We also handle tax documentation for overseas landlords.' },
+  { q: 'I\'m a UK-based investor. Can you manage my Gibraltar property remotely?', a: 'Absolutely - remote landlords are a large part of our client base. We provide full management with monthly reports, photos, and video inspections. You\'ll never need to visit unless you want to. We also handle tax documentation for overseas landlords.' },
   { q: 'How do I switch from my current property manager?', a: 'Very straightforward. We handle the transition including tenant communication, key handover, deposit transfer, and existing maintenance issues. Most transitions complete within 2-4 weeks with zero disruption to your tenant.' },
 ];
 
@@ -18,7 +18,7 @@ const breadcrumbs = generateBreadcrumbLD([{ name: 'Home', url: 'https://property
 const faqLD = generateFAQLD(faqs);
 ---
 <BaseLayout>
-  <SEOHead slot="head" title="Landlord Resources & FAQs — Gibraltar Property Management"
+  <SEOHead slot="head" title="Landlord Resources & FAQs - Gibraltar Property Management"
     description="Everything Gibraltar landlords need to know: property management FAQs, legal obligations, tenant rights, and guides. Expert advice for property investors."
     structuredData={`[${breadcrumbs},${faqLD}]`} />
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -41,7 +41,7 @@ const faqLD = generateFAQLD(faqs);
 
     <div class="mt-16 card !bg-stone-900 !text-white !border-0 text-center">
       <h2 class="font-heading font-bold text-2xl">Have a question we haven't answered?</h2>
-      <p class="text-stone-300 mt-2">We're happy to chat — no obligation, no sales pitch.</p>
+      <p class="text-stone-300 mt-2">We're happy to chat - no obligation, no sales pitch.</p>
       <div class="flex flex-wrap justify-center gap-3 mt-6">
         <a href="/contact" class="btn-gold">Contact Us</a>
         <a href="/quote" class="inline-flex items-center px-6 py-3 border-2 border-stone-600 text-stone-200 rounded-lg hover:bg-stone-800 transition-all font-semibold">Get a Quote</a>
