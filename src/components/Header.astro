@@ -13,16 +13,16 @@ function isActive(href: string) { return href === '/' ? currentPath === '/' : cu
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <a href="/" class="flex items-center gap-2.5 group">
-        <div class="w-9 h-9 rounded-lg bg-emerald-700 flex items-center justify-center text-white font-heading font-bold text-xs group-hover:bg-emerald-800 transition-colors">PM</div>
+        <div class="w-9 h-9 rounded-lg bg-green-800 flex items-center justify-center text-white font-heading font-bold text-xs group-hover:bg-green-900 transition-colors">PM</div>
         <div class="hidden sm:block leading-tight">
           <span class="font-heading font-bold text-stone-900 text-sm">Property Management</span><br/>
-          <span class="font-heading font-semibold text-emerald-700 text-xs">Gibraltar</span>
+          <span class="font-heading font-semibold text-green-800 text-xs">Gibraltar</span>
         </div>
       </a>
       <div class="hidden lg:flex items-center gap-1">
         {navItems.map((item) => (
           <a href={item.href} class:list={['px-3 py-2 rounded-lg text-sm font-medium transition-all',
-            isActive(item.href) ? 'text-emerald-700 bg-emerald-50' : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50']}>
+            isActive(item.href) ? 'text-green-800 bg-green-50' : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50']}>
             {item.label}
           </a>
         ))}
@@ -38,7 +38,7 @@ function isActive(href: string) { return href === '/' ? currentPath === '/' : cu
       <div class="flex flex-col gap-1 pt-2 border-t border-stone-100">
         {navItems.map((item) => (
           <a href={item.href} class:list={['px-3 py-2.5 rounded-lg text-sm font-medium',
-            isActive(item.href) ? 'text-emerald-700 bg-emerald-50' : 'text-stone-600']}>
+            isActive(item.href) ? 'text-green-800 bg-green-50' : 'text-stone-600']}>
             {item.label}
           </a>
         ))}
