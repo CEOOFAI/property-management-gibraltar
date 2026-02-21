@@ -80,21 +80,33 @@ const combinedLD = `[${generateWebsiteLD()},${generateLocalBusinessLD()}]`;
       <h2 class="section-heading">What we <span class="gradient-text">do</span></h2>
       <p class="section-sub mx-auto">Comprehensive property management covering every aspect of landlord responsibility.</p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {services.map((s) => (
-        <a href={`/services/${s.slug}`} class="card-interactive group">
-          <span class="text-3xl">{s.icon}</span>
-          <h3 class="font-heading font-bold text-xl text-stone-900 mt-4 group-hover:text-emerald-700 transition-colors">{s.name}</h3>
-          <p class="text-stone-500 mt-2 leading-relaxed">{s.desc}</p>
-          <span class="text-emerald-700 text-sm font-medium mt-3 inline-block group-hover:underline">Learn more →</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {[
+        { icon: '🔍', name: 'Tenant Finding', slug: 'tenant-finding', desc: 'Rigorous vetting, referencing, and placement to find reliable tenants fast.', image: '/images/property-keys.jpg' },
+        { icon: '💷', name: 'Rent Collection', slug: 'rent-collection', desc: 'Guaranteed rent day processing, arrears management, and financial reporting.', image: '/images/apartment-interior.jpg' },
+        { icon: '🔧', name: 'Maintenance', slug: 'maintenance', desc: '24/7 emergency response, vetted contractors, and preventive upkeep.', image: '/images/modern-kitchen.jpg' },
+        { icon: '⚖️', name: 'Legal & Compliance', slug: 'legal-compliance', desc: 'Tenancy agreements, deposit protection, and regulatory compliance.', image: '/images/apartment-building.jpg' },
+      ].map((s) => (
+        <a href={`/services/${s.slug}`} class="card-interactive group !p-0 overflow-hidden">
+          <div class="relative h-40 overflow-hidden">
+            <img src={s.image} alt={s.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute top-3 left-3 text-2xl">{s.icon}</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-heading font-bold text-xl text-stone-900 group-hover:text-emerald-700 transition-colors">{s.name}</h3>
+            <p class="text-stone-500 mt-2 leading-relaxed">{s.desc}</p>
+            <span class="text-emerald-700 text-sm font-medium mt-3 inline-block group-hover:underline">Learn more →</span>
+          </div>
         </a>
       ))}
     </div>
   </section>
 
   {/* Why Us / Trust */}
-  <section class="bg-green-900 text-white py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="relative bg-green-900 text-white py-20 overflow-hidden">
+    <img src="/images/gibraltar-view.jpg" alt="Gibraltar panorama" class="absolute inset-0 w-full h-full object-cover opacity-10" />
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-heading font-bold">Why landlords choose us</h2>
         <p class="text-green-200 mt-3 max-w-2xl mx-auto text-lg">We're not a London agency with a Gibraltar postbox. We live here, we know the market, and we treat your property like our own.</p>
@@ -146,17 +158,20 @@ const combinedLD = `[${generateWebsiteLD()},${generateLocalBusinessLD()}]`;
       <p class="text-stone-500 mt-3 max-w-lg mx-auto mb-8">Complete property management across every corner of Gibraltar.</p>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
         {[
-          { area: 'Ocean Village', type: 'Marina & Luxury', rentRange: '£1,400-3,500/mo' },
-          { area: 'Town Centre', type: 'Central & Accessible', rentRange: '£1,000-2,500/mo' },
-          { area: 'South District', type: 'Family-Friendly', rentRange: '£1,200-3,000/mo' },
-          { area: 'Europort', type: 'Modern & Corporate', rentRange: '£1,100-2,800/mo' },
-          { area: 'Eastside', type: 'Beach & Coastal', rentRange: '£1,200-2,500/mo' },
-          { area: 'Westside', type: 'Harbour Views', rentRange: '£900-2,200/mo' },
+          { area: 'Ocean Village', type: 'Marina & Luxury', rentRange: '£1,400-3,500/mo', image: '/images/ocean-village.jpg' },
+          { area: 'Town Centre', type: 'Central & Accessible', rentRange: '£1,000-2,500/mo', image: '/images/town-centre.jpg' },
+          { area: 'South District', type: 'Family-Friendly', rentRange: '£1,200-3,000/mo', image: '/images/apartment-building.jpg' },
+          { area: 'Europort', type: 'Modern & Corporate', rentRange: '£1,100-2,800/mo', image: '/images/apartment-interior.jpg' },
+          { area: 'Eastside', type: 'Beach & Coastal', rentRange: '£1,200-2,500/mo', image: '/images/gibraltar-view.jpg' },
+          { area: 'Westside', type: 'Harbour Views', rentRange: '£900-2,200/mo', image: '/images/hero-gibraltar.jpg' },
         ].map((a) => (
-          <div class="bg-stone-50 border border-stone-200 rounded-xl p-4 text-center hover:border-green-300 transition-colors">
-            <div class="font-heading font-bold text-stone-900 text-sm">{a.area}</div>
-            <div class="text-xs text-stone-400 mt-0.5">{a.type}</div>
-            <div class="text-xs font-medium text-green-700 mt-2">{a.rentRange}</div>
+          <div class="border border-stone-200 rounded-xl overflow-hidden text-center hover:border-green-300 hover:shadow-md transition-all">
+            {a.image && <img src={a.image} alt={a.area} class="w-full h-24 object-cover" loading="lazy" />}
+            <div class="p-3">
+              <div class="font-heading font-bold text-stone-900 text-sm">{a.area}</div>
+              <div class="text-xs text-stone-400 mt-0.5">{a.type}</div>
+              <div class="text-xs font-medium text-green-700 mt-1">{a.rentRange}</div>
+            </div>
           </div>
         ))}
       </div>
@@ -169,10 +184,14 @@ const combinedLD = `[${generateWebsiteLD()},${generateLocalBusinessLD()}]`;
 
   {/* CTA */}
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="rounded-2xl bg-stone-900 text-white p-8 sm:p-12 lg:p-16 text-center">
+    <div class="rounded-2xl overflow-hidden relative">
+      <img src="/images/ocean-village.jpg" alt="Ocean Village Gibraltar" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-stone-900/85"></div>
+      <div class="relative p-8 sm:p-12 lg:p-16 text-center text-white">
       <h2 class="text-3xl sm:text-4xl font-heading font-bold">Ready to stop worrying about your property?</h2>
       <p class="text-stone-300 mt-4 max-w-lg mx-auto">Get a free, no-obligation management quote in under 2 minutes. We'll review your details and come back with a tailored proposal.</p>
       <a href="/quote" class="btn-gold mt-8 text-lg !px-10 !py-4">Get Your Free Quote →</a>
+      </div>
     </div>
   </section>
 </BaseLayout>
